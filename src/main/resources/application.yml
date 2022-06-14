@@ -1,0 +1,30 @@
+#yml格式的配置文件，格式更有层次感，使用者多
+#这里的配置不需要死记硬背，记住几个单词就行，idea会自动提示补全。对于一些三方库的配置，maven导入后才会有提示
+server:
+  port: 10001 #自定义一个端口号。默认是8080
+
+spring:
+  datasource:
+    #不使用连接池的配置方式
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://localhost:3306/student?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    #    username: root
+    #    password: root
+    druid: #这里直接配置了druid连接池的信息就行了。
+      #你修改数据库名称，用户名，密码
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/todo?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: random
+
+  jackson:
+    #注解控制null不序列化.因为Android端如果使用kotlin不可空类型的话，会出现类型错误
+    default-property-inclusion: non_null #和@EnableWebMvc冲突，所以不会生效。必须在每个实体类上加@JsonInclude(JsonInclude.Include.NON_NULL)
+
+
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/**.xml
+
